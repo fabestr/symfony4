@@ -48,6 +48,11 @@ class Commande
      */
     private $ligneCommandes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="order_id")
+     */
+    private $user_id;
+
     public function __construct()
     {
         $this->ligneCommandes = new ArrayCollection();
@@ -145,6 +150,18 @@ class Commande
                 $ligneCommande->setNumeroCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?User $user_id): self
+    {
+        $this->user_id = $user_id;
 
         return $this;
     }

@@ -15,12 +15,12 @@ class ArtistType extends AbstractType
         $builder
             ->add('nom')
             ->add('pays')
-            ->add('style',ChoiceType::class, [
-                'choices' => ['Rap'=>true,'Rnb' =>true,'rock'=>true, 'electro' =>true,
-                                'raggae'=>true],
-                'multiple' => true,
+            ->add('style'/* ,ChoiceType::class, [
+                'choices' => ['Rap'=>"rap",'Rnb' =>'Rnb','rock'=>'rock', 'electro' =>'electro',
+                                'raggae'=>'raggae'],
+                'multiple' => false,
                 'expanded' => true
-            ])
+            ] */)
             ->add('presentation')
         ;
     }

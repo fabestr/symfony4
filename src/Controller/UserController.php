@@ -67,6 +67,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // var_dump($user->getRoles());die;
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');

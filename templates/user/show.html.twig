@@ -12,28 +12,40 @@
                 <td>{{ user.id }}</td>
             </tr>
             <tr>
-                <th>Nom</th>
-                <td>{{ user.nom }}</td>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
-                <td>{{ user.prenom }}</td>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Pseudo</th>
-                <td>{{ user.pseudo }}</td>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
             </tr>
             <tr>
-                <th>Mot_de_passe</th>
-                <td>{{ user.motDePasse }}</td>
+                <th>Name</th>
+                <td>{{ user.name }}</td>
             </tr>
             <tr>
-                <th>Role</th>
-                <td>{{ user.role }}</td>
+                <th>FirstName</th>
+                <td>{{ user.firstName }}</td>
             </tr>
             <tr>
-                <th>Collection</th>
-                <td>{{ user.collection ? user.collection|join(', ') : '' }}</td>
+                <th>Address</th>
+                <td>{{ user.address }}</td>
+            </tr>
+            <tr>
+                <th>ZipCode</th>
+                <td>{{ user.zipCode }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ user.city }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ user.phone }}</td>
             </tr>
         </tbody>
     </table>

@@ -5,11 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,55 +22,59 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $nom;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
      */
-    private $prenom;
+    private $roles = ['ROLE_USER'];
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $pseudo;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $mot_de_passe;
+    private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $role;
+    private $firstName;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $collection = [];
+    private $address;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Streaming", inversedBy="users")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $streaming;
+    private $zipCode;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Actualite", mappedBy="user")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $actualites;
+    private $city;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="user")
+     * @ORM\Column(type="string" , length=255, nullable=true)
      */
-    private $commandes;
+    private $phone;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="user_id")
+     */
+    private $order_id;
 
     public function __construct()
     {
-        $this->streaming = new ArrayCollection();
-        $this->actualites = new ArrayCollection();
-        $this->commandes = new ArrayCollection();
+        $this->order_id = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,128 +82,142 @@ class User
         return $this->id;
     }
 
-    public function getNom(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->nom;
+        return (string) $this->username;
     }
 
-    public function setNom(string $nom): self
+    public function setUsername(string $username): self
     {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    public function getMotDePasse(): ?string
-    {
-        return $this->mot_de_passe;
-    }
-
-    public function setMotDePasse(string $mot_de_passe): self
-    {
-        $this->mot_de_passe = $mot_de_passe;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    public function getCollection(): ?array
-    {
-        return $this->collection;
-    }
-
-    public function setCollection(?array $collection): self
-    {
-        $this->collection = $collection;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * @return Collection|Streaming[]
+     * @see UserInterface
      */
-    public function getStreaming(): Collection
+    public function getRoles(): array
     {
-        return $this->streaming;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        //$roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function addStreaming(Streaming $streaming): self
+    public function setRoles(array $roles): self
     {
-        if (!$this->streaming->contains($streaming)) {
-            $this->streaming[] = $streaming;
-        }
-
-        return $this;
-    }
-
-    public function removeStreaming(Streaming $streaming): self
-    {
-        if ($this->streaming->contains($streaming)) {
-            $this->streaming->removeElement($streaming);
-        }
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * @return Collection|Actualite[]
+     * @see UserInterface
      */
-    public function getActualites(): Collection
+    public function getPassword(): string
     {
-        return $this->actualites;
+        return (string) $this->password;
     }
 
-    public function addActualite(Actualite $actualite): self
+    public function setPassword(string $password): self
     {
-        if (!$this->actualites->contains($actualite)) {
-            $this->actualites[] = $actualite;
-            $actualite->addUser($this);
-        }
+        $this->password = $password;
 
         return $this;
     }
 
-    public function removeActualite(Actualite $actualite): self
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
     {
-        if ($this->actualites->contains($actualite)) {
-            $this->actualites->removeElement($actualite);
-            $actualite->removeUser($this);
-        }
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?int
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(?int $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
@@ -204,28 +225,28 @@ class User
     /**
      * @return Collection|Commande[]
      */
-    public function getCommandes(): Collection
+    public function getOrderId(): Collection
     {
-        return $this->commandes;
+        return $this->order_id;
     }
 
-    public function addCommande(Commande $commande): self
+    public function addOrderId(Commande $orderId): self
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->setUser($this);
+        if (!$this->order_id->contains($orderId)) {
+            $this->order_id[] = $orderId;
+            $orderId->setUserId($this);
         }
 
         return $this;
     }
 
-    public function removeCommande(Commande $commande): self
+    public function removeOrderId(Commande $orderId): self
     {
-        if ($this->commandes->contains($commande)) {
-            $this->commandes->removeElement($commande);
+        if ($this->order_id->contains($orderId)) {
+            $this->order_id->removeElement($orderId);
             // set the owning side to null (unless already changed)
-            if ($commande->getUser() === $this) {
-                $commande->setUser(null);
+            if ($orderId->getUserId() === $this) {
+                $orderId->setUserId(null);
             }
         }
 

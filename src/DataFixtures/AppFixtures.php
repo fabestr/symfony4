@@ -15,7 +15,7 @@ class AppFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
         // $product = new Product();
         // $manager->persist($product);
-        for($i = 0 ; $i < 30; $i++)
+        for($i = 0 ; $i < 10; $i++)
         {
             $artist = new Artist();
             $artist->setNom($faker->name);

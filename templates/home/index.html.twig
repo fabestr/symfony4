@@ -4,14 +4,20 @@
 
 {% block body %}
 
-div.
-{{ render(controller(
-        'App\\Controller\\HomeController::showArtists'
-    )) }}
 
-{{ render(controller(
-        'App\\Controller\\HomeController::showEvents'
-    )) }}
+<div class="row clearfix">
+    <div class="col float-left">
+        <h2>Nos artistes</h2>
+        {{ render(controller(
+                'App\\Controller\\HomeController::showArtists'
+            )) }}
+    </div>
 
-
+    <div class="col float-right">
+        <h2>Evênements à venir:</h2>
+        {{ render(controller(
+                'App\\Controller\\HomeController::showEvents'
+            )) }}
+    </div>
+</div>
 {% endblock %}

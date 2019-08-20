@@ -79,6 +79,11 @@ class Event
         return $this->date_debut;
     }
 
+    public function getdate_debut(): ?\DateTimeInterface
+    {
+        return $this->date_debut;
+    }
+
     public function setDateDebut(\DateTimeInterface $date_debut): self
     {
         $this->date_debut = $date_debut;

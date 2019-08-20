@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Type</th>
+                <th>Artiste associé</th>
                 <th>Date_debut</th>
                 <th>Date_fin</th>
                 <th>Lieu</th>
@@ -24,6 +25,7 @@
             <tr>
                 <td>{{ event.id }}</td>
                 <td>{{ event.type }}</td>
+                <td>{{ event.artist_id.nom }} </td>
                 <td>{{ event.dateDebut ? event.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ event.dateFin ? event.dateFin|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ event.lieu }}</td>

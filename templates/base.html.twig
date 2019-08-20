@@ -22,23 +22,28 @@
   <li class="nav-item">
     <a class="nav-link" href="{{ path ('event_index') }}">Evenements</a>
   </li>
+
+   {% if app.user is empty  %}
   <li class="nav-item">
     <a class="nav-link" href="{{ path ('app_register') }}">s'enregistrer</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="{{ path ('app_login') }}">se connecter</a>
   </li>
+   {% endif %}
+
+
      {% if is_granted(["ROLE_ADMIN"]) %}
     <li class="nav-item">
     <a class="nav-link" href="{{ path ('user_index') }}">Admin</a>
     </li>
      {% endif %}
      
-     {{% if empty %}}
+     {% if app.user is not empty  %}
     <li class="nav-item">
     <a class="nav-link" href="{{ path ('app_logout') }}">se déconnecter</a>
     </li>
-
+    {% endif %}
 
 </ul>
     <div class="container">

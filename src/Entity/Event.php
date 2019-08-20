@@ -151,6 +151,11 @@ class Event
         return $this->artist_id;
     }
 
+    public function getartist_id(): ?artist
+    {
+        return $this->artist_id;
+    }
+
     public function setArtistId(?artist $artist_id): self
     {
         $this->artist_id = $artist_id;

@@ -2,15 +2,19 @@
 
 <div class="row justify-content-around">
     {% for artist in artists %}
-        <div class="card col-6 mx-1 my-2" style="width: 18rem">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title"> {{artist.nom}} </h5>
-     <h6 class="card-title"> {{artist.style}} </h6>
-    <p class="card-text"> {{artist.presentation}} </p>
-    <a href="#" class="btn btn-primary">Plus d'info</a>
+ 
+  <div class="card text-center w-50 border-primary mx-1 my-2" style="max-width: 15rem;">
+    <div class="card-header"><img src="" alt=""></div>
+    <div class="card-body">
+      <h4 class="card-title">{{artist.nom}}</h4>
+      <h6 class="card-title"> {{artist.style}} </h6>
+      <p class="card-text"> {{artist.presentation}} </p>
+      <a href="{{ path ('artist_show', {'id':artist.id})}}" class="btn btn-primary">Plus d'info</a>
+    </div>
   </div>
-</div>
+
+
+
     {% endfor %}
 </div>
 

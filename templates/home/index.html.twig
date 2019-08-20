@@ -5,15 +5,15 @@
 {% block body %}
 
 
-<div class="row clearfix">
-    <div class="col float-left">
+<div class="row clearfix my-3">
+    <div class="col-8 float-left">
         <h2>Nos artistes</h2>
         {{ render(controller(
                 'App\\Controller\\HomeController::showArtists'
             )) }}
     </div>
 
-    <div class="col float-right">
+    <div class="col  border-left border-success float-right">
         <h2>Evênements à venir:</h2>
         {{ render(controller(
                 'App\\Controller\\HomeController::showEvents'

@@ -2,14 +2,14 @@
 
 <div class="row justify-content-around">
 {% for event in events %}
-  <div class="col-5 mx-1 my-2">
-    <div class="card">
+  <div class="col mx-1 my-2">
+    <div class="card border-warning">
       <div class="card-body">
         <h5 class="card-title">Evènement: {{event.type}}</h5>
         <p class="card-text">Ou?: {{event.ville}}</p>
         <p class="card-text">Quel lieu?: {{event.lieu}}</p>
         <p class="card-text">Quand?: {{event.date_debut |date('d/m/Y')}}</p>
-        <a href="#" class="btn btn-primary">Ca m'interresse</a>
+        <a href="#" class="btn btn-warning">Ca m'interresse</a>
       </div>
     </div>
   </div>

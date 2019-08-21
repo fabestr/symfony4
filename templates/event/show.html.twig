@@ -17,11 +17,11 @@
             </tr>
             <tr>
                 <th>Date_debut</th>
-                <td>{{ event.dateDebut ? event.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.dateDebut ? event.dateDebut|date('d-m-Y')  }}</td>
             </tr>
             <tr>
                 <th>Date_fin</th>
-                <td>{{ event.dateFin ? event.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.dateFin ? event.dateFin|date('d-m-Y') }}</td>
             </tr>
             <tr>
                 <th>Lieu</th>
@@ -48,15 +48,24 @@
 
     <div class="jumbotron">
         <h1 class="display-4">Coordonnées de l'Event:</h1>
-        <p class="lead">X: <strong>{{ response.features.0.geometry.coordinates.1 }}</strong> </p>
-        <p class="lead">Y: <strong>{{ response.features.0.geometry.coordinates.0 }}</strong></p>
+        <h2>La soirée: {{ event.type}} </h2>
+        <h4>Avec:  {{ event.artist_id.nom}} </h4>
+        <h5>Ca se passe du {{ event.dateDebut|date('d-m-Y')}} au {{ event.dateFin|date('d-m-Y') }} </h5>
+        <p>X: {{ response.features.0.geometry.coordinates.1 }} </p>
+        <p>Y: {{ response.features.0.geometry.coordinates.0 }}</p>
+
+        <div class="text-center">
+         <a class="btn btn-primary btn-lg text-right" href="#" role="button">Réserver</a>
+       </div>
         <hr class="my-4">
+
+           
         <div id="mapid" style="height:180px">
          {% include('/leaflet/leaflet.html.twig') %}
         </div>
     </div>
 
-    {# {{dump(response)}} #}
+    {# {{dump(response)}} #} 
 
     {{ include('event/_delete_form.html.twig') }}
 {% endblock %}

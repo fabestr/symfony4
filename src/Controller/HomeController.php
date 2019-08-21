@@ -22,7 +22,7 @@ class HomeController extends AbstractController
             //var_dump($artists);
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'message'=> $h->yoUpper(),
+            'messageTestService'=> $h->yoUpper(),
         ]);
     }
 

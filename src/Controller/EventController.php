@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\GeolocController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/event")
@@ -51,10 +52,12 @@ class EventController extends AbstractController
     /**
      * @Route("/{id}", name="event_show", methods={"GET"})
      */
-    public function show(Event $event): Response
+    public function show(Event $event, GeolocController $g): Response
     {
+
         return $this->render('event/show.html.twig', [
             'event' => $event,
+            'response' => $g->localize($event->getVille())
         ]);
     }
 

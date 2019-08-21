@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Artist;
 use App\Entity\Event;
+use App\Entity\Artist;
+use App\Hello\HelloWorld;
+
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/home", name="home")
      */
-    public function index()
+    public function index(HelloWorld $h)
     {
 
         
@@ -20,6 +22,7 @@ class HomeController extends AbstractController
             //var_dump($artists);
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'message'=> $h->yoUpper(),
         ]);
     }
 

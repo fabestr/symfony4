@@ -95,4 +95,29 @@ class ArtistController extends AbstractController
 
         return $this->redirectToRoute('artist_index');
     }
+
+
+    /**
+     * @Route("/{id}/same_style", name="artiste_same_style", methods={"GET","POST"})
+     */
+    public function sameStyle(ArtistRepository $artistRepository, Artist $artist)
+    {
+        /*exercice:
+        1/ ->requete->findByStyle()
+        2/ ->créer(id, nom)
+        3/->renvoyer JSONResponse */
+        $style = $artistRepository->findBy(
+            ['style'=> $artist->getStyle()]
+        );
+
+        $json = json_encode($style);
+
+        var_dump($json);
+        return $this->render('artist/sameStyle.html.twig', [
+            'style' => $style,
+            'json' => $json
+        ]);
+
+
+    }
 }

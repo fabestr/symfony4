@@ -5,6 +5,8 @@
   <div class="col mx-1 my-2 text-center">
     <div class="card border-warning">
       <div class="card-body">
+      {# <p><img style="max-width:200px" src="{{ asset('image/'~event.image) }}" alt=""></p> #}
+        <p>{{ event.image | figure(event.description) | raw }}</p>
         <h5 class="card-title">Evènement: {{event.type}}</h5>
         <p class="card-text">Ou?: {{event.ville}}</p>
         <p class="card-text">Quel lieu?: {{event.lieu}}</p>

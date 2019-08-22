@@ -34,7 +34,10 @@
                 <td>{{ event.prix }}</td>
                 <td>
                     <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
+
+                    {% if is_granted(["ROLE_ADMIN"]) %}
                     <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

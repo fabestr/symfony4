@@ -5,12 +5,13 @@ namespace App\Controller;
 use App\Entity\Artist;
 use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 Use Faker\Factory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
@@ -106,18 +107,20 @@ class ArtistController extends AbstractController
         1/ ->requete->findByStyle()
         2/ ->créer(id, nom)
         3/->renvoyer JSONResponse */
-        $style = $artistRepository->findBy(
+        $styleList = $artistRepository->findBy(
             ['style'=> $artist->getStyle()]
         );
+        
+        $filtered_list = array_map(function($item){
+            return ['id'=>$item->getId(),
+                    'nom' => $item->getNom(),
+                    'pays' => $item->getPays(),
+                    'href' => $this->generateUrl('artist_show', ['id'=>$item->getId()])
+            ];
+        },$styleList);
 
-        $json = json_encode($style);
-
-        var_dump($json);
-        return $this->render('artist/sameStyle.html.twig', [
-            'style' => $style,
-            'json' => $json
-        ]);
-
-
+        //var_dump($json);
+        return new JsonResponse($filtered_list);
+  
     }
 }

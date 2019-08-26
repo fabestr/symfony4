@@ -17,8 +17,6 @@ class HomeController extends AbstractController
     public function index(HelloWorld $h)
     {
 
-        
-
             //var_dump($artists);
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

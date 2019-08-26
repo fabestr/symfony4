@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+    <div class="jumbotron clearfix">
+        <h1 class="display-4">Les artistes les plus vues sur des évènements</h1>
+       {% for a in result %}
+        <p> {{a.artist_id.nom}} </p>
+        {% endfor %}
+        <div class="text-center">
+         <a class="btn btn-primary btn-lg text-right" href="#" role="button">Réserver</a>
+       </div>
+        <hr class="my-4">
+
+           
+        
+    </div>
+
+{% endblock %}

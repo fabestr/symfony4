@@ -47,4 +47,20 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findArtistByEvent()
+    {
+        return $this->createQueryBuilder('e')
+            ->select('a')
+            ->addSelect('count(e.id)')
+            ->innerJoin('e.artist_id', 'a')
+            ->groupBy('e.artist_id')
+            // ->orderBy(count('e.id'))
+            //->andWhere('a.exampleField = :val')
+            //->orderBy('a.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

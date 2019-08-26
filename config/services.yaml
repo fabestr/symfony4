@@ -31,3 +31,7 @@ services:
     App\Hello\HelloWorld:
         arguments:
             $p : 'Hector'
+
+    App\EventListener\RegisterListener:
+        tags: 
+            - { name: kernel.event_listener, event: user.register, method: sendMailToUser, priority: -10 }

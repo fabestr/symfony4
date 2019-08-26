@@ -24,7 +24,7 @@ class Produit
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime")
      */
     private $date_production;
 
@@ -65,12 +65,12 @@ class Produit
         return $this;
     }
 
-    public function getDateProduction(): ?string
+    public function getDateProduction(): ?\DateTimeInterface
     {
         return $this->date_production;
     }
 
-    public function setDateProduction(string $date_production): self
+    public function setDateProduction(\DateTimeInterface $date_production): self
     {
         $this->date_production = $date_production;
 

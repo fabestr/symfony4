@@ -50,14 +50,18 @@ class EventRepository extends ServiceEntityRepository
 
     public function findArtistByEvent()
     {
+
+        
+
         return $this->createQueryBuilder('e')
-            ->select('a')
-            ->addSelect('count(e.id)')
+            ->select('a.nom, count(e.id) as nbE')
+            /* ->addSelect('count(e.id) as nbE') */
             ->innerJoin('e.artist_id', 'a')
+            //->where('a.id = e.artist_id')
             ->groupBy('e.artist_id')
             // ->orderBy(count('e.id'))
             //->andWhere('a.exampleField = :val')
-            //->orderBy('a.id', 'ASC')
+            ->orderBy('nbE', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()

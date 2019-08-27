@@ -49,4 +49,25 @@ class ArtistRepository extends ServiceEntityRepository
     */
 
     
+    public function findByArtist()
+    {
+
+        //exemple de sous requete
+        $q1 = $this->createQueryBuilder('x');
+        $qexpr = $q1->expr();// permet d'accéder au requetes de expr()
+        $subrequest = $q1->select('x.id')
+                        ->where($qexpr->like('x.pays', $qexpr->literal('FR')));
+
+        //requete principal dans la quelle on integre la sous requete
+        return $this->createQueryBuilder('a')
+            ->select('partial a.{id,nom,style} as artist')
+            ->addSelect('count(e.id) as events')
+            ->innerJoin('a.events','e')
+            ->where($qexpr->in('a.id', $subrequest->getDQL()))
+            ->groupBy('a.id')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
+

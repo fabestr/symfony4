@@ -5,12 +5,19 @@
 {% block body %}
     <div class="jumbotron clearfix">
         <h1 class="display-4">Les artistes les plus vues sur des évènements</h1>
-       {% for a in result %}
-        <p> {{a.artist_id.nom}} </p>
+        {# {{ dump(request1) }} #} 
+       <h2> Artistes ayant les plus d'évènements et de pays francais:</h2>
+       {% for a in request1 %}
+        <p><strong>{{a.artist.nom}}</strong>  participe à <strong>{{ a.events }}</strong> évènements!  </p>
         {% endfor %}
-        <div class="text-center">
-         <a class="btn btn-primary btn-lg text-right" href="#" role="button">Réserver</a>
-       </div>
+
+        {# {{ dump(result) }} #}
+        <h2>Les artistes ayant le plus plus d'évènements:</h2>
+{% for a in result %}
+        <p><strong>{{a.nom}}</strong>  participe à <strong>{{ a.nbE }}</strong> évènements!  </p>
+        {% endfor %}
+
+        
         <hr class="my-4">
 
            

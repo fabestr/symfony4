@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ produit.id }}</td>
                 <td>{{ produit.titre }}</td>
-                <td>{{ produit.dateProduction }}</td>
+                <td>{{ produit.dateProduction | date('d-m-Y') }}</td>
                 <td>{{ produit.presentation }}</td>
                 <td>
                     <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>

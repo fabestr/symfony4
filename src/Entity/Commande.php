@@ -18,11 +18,7 @@ class Commande
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numero_commande;
-
+    
     /**
      * @ORM\Column(type="datetime")
      */
@@ -38,13 +34,9 @@ class Commande
      */
     private $statut;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="commandes")
-     */
-    private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneCommande", mappedBy="numeroCommande")
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneCommande", mappedBy="commande_id")
      */
     private $ligneCommandes;
 
@@ -63,17 +55,7 @@ class Commande
         return $this->id;
     }
 
-    public function getNumeroCommande(): ?int
-    {
-        return $this->numero_commande;
-    }
 
-    public function setNumeroCommande(int $numero_commande): self
-    {
-        $this->numero_commande = $numero_commande;
-
-        return $this;
-    }
 
     public function getDateCommande(): ?\DateTimeInterface
     {
@@ -107,18 +89,6 @@ class Commande
     public function setStatut(string $statut): self
     {
         $this->statut = $statut;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }

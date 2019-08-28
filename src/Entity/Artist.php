@@ -65,7 +65,7 @@ class Artist
 
     public function __toString()
     {
-        return (string) $this->id;
+        return (string) $this->nom;
     }
 
     public function getId(): ?int
@@ -184,6 +184,8 @@ class Artist
 
         return $this;
     }
+
+
 
     
 }

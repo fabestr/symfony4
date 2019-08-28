@@ -27,7 +27,7 @@ class LigneCommande
      * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="ligneCommandes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $numeroCommande;
+    private $commande_id;
 
     public function getId(): ?int
     {
@@ -36,12 +36,12 @@ class LigneCommande
 
     public function getNumeroCommande(): ?Commande
     {
-        return $this->numeroCommande;
+        return $this->commande_id;
     }
 
-    public function setNumeroCommande(?Commande $numeroCommande): self
+    public function setNumeroCommande(?Commande $commande_id): self
     {
-        $this->numeroCommande = $numeroCommande;
+        $this->numeroCommande = $commande_id;
 
         return $this;
     }

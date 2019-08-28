@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- * @Route("/{_locale}/artist")
+ * @Route("/artist")
  */
 class ArtistController extends AbstractController
 {

@@ -6,15 +6,15 @@
     <div class="jumbotron clearfix">
         <h1 class="display-4">Les artistes les plus vues sur des évènements</h1>
         {# {{ dump(request1) }} #} 
-       <h2> Artistes ayant les plus d'évènements et de pays francais:</h2>
+       <h2>{% trans %} Artistes ayant les plus d'évènements et de pays espagnol: {% endtrans %} </h2>
        {% for a in request1 %}
-        <p><strong>{{a.artist.nom}}</strong>  participe à <strong>{{ a.events }}</strong> évènements!  </p>
+        <p> {{a.artist.nom}} {{ 'num_of_events' | trans({'count':a.events})  }}  </p>
         {% endfor %}
 
         {# {{ dump(result) }} #}
         <h2>Les artistes ayant le plus plus d'évènements:</h2>
 {% for a in result %}
-        <p><strong>{{a.nom}}</strong>  participe à <strong>{{ a.nbE }}</strong> évènements!  </p>
+        <p>{{a.nom}} {% trans with {'count' : a.nbE} %} num_of_events {% endtrans %} </p>
         {% endfor %}
 
         

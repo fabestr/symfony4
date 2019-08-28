@@ -1,0 +1,6 @@
+num_of_events: >
+  {count, plural,
+      =0 {n'a participé à aucun évènement}
+      one {a participé à 1 évènement}
+      other {a participé à # évènements}
+  }

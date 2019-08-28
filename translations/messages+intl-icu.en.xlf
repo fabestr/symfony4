@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id=".sqyIiY" resname="num_of_events">
+        <source>num_of_events</source>
+        <target>{count, plural,
+    =0 {makes no one event}
+    one {makes one event}
+    other {makes # events}
+}</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

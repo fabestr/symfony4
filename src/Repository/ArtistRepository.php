@@ -56,7 +56,7 @@ class ArtistRepository extends ServiceEntityRepository
         $q1 = $this->createQueryBuilder('x');
         $qexpr = $q1->expr();// permet d'accéder au requetes de expr()
         $subrequest = $q1->select('x.id')
-                        ->where($qexpr->like('x.pays', $qexpr->literal('FR')));
+                        ->where($qexpr->like('x.pays', $qexpr->literal('Espagne')));
 
         //requete principal dans la quelle on integre la sous requete
         return $this->createQueryBuilder('a')

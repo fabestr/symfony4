@@ -1,0 +1,6 @@
+num_of_events: >
+  {count, plural,
+      =0 {makes no one event}
+      one {makes one event}
+      other {makes # events}
+  }

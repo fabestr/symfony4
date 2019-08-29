@@ -6,11 +6,12 @@ use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use App\Controller\GeolocController;
+use App\Programmation\Programmation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
@@ -21,8 +22,11 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="event_index", methods={"GET"})
      */
-    public function index(EventRepository $eventRepository): Response
+    public function index(EventRepository $eventRepository, Programmation $program): Response
     {
+
+        //dd($program->isDateExistingInAnEventInterval('2019-08-06','2019-08-08','2019-08-16'));
+        
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
         ]);

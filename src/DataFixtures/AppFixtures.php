@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
             $event->setType($faker->randomElement($array = array ('Festival','Concert','AfterWork','Boiler','Grosse soirée')));
             
             //gestion des dates
-            $startDate = $faker->dateTimeBetween('-3 months');
+            $startDate = $faker->dateTimeBetween($startDate = 'now', $endDate = '+2 years');
             $event->setDateDebut($startDate);
             $duration  = mt_rand(3, 10);
             $endDate   = (clone $startDate)->modify("+$duration days");
@@ -102,15 +102,24 @@ class AppFixtures extends Fixture
         {
             $product = new Produit();
             $product->setTitre($faker->companySuffix);
-            $product->setDateProduction($faker->dateTimeBetween('-6 months'));
+            $product->setDateProduction($faker->dateTimeBetween($startDate = '-10 years', $endDate = 'now'));
             $product->setPresentation($faker->text($maxNbChars = 200));
 
             $artist = $artists[mt_rand(0, count($artists) - 1)];
             $product->setArtisteId($artist);
+            $manager->persist($product);
+
         }
         
 
 
         $manager->flush();
+    }
+
+    //cette fonction doit sappeler comme ca 
+    // elle permet de fixture 
+    public static function getGroups(): array
+    {
+        return ['AppFixtures'];
     }
 }

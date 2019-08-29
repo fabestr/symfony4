@@ -14,7 +14,7 @@ class UserVoter extends Voter
 
     public function supports($attribute, $subject)
     {
-        if (in_array($attribute, [self::EDIT]))
+        if (!in_array($attribute, [self::EDIT]))
         {
             return false;
         }
